@@ -40,7 +40,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $errors['nama_lengkap'] = 'Nama lengkap wajib diisi (maks 100 karakter).';
         }
 
-
         if (strlen($password) < 8) {
             $errors['password'] = 'Password minimal 8 karakter.';
         } elseif ($password !== $passwordConf) {
