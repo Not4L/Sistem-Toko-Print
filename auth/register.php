@@ -18,9 +18,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $password     = $_POST['password'] ?? '';
         $passwordConf = $_POST['password_confirm'] ?? '';
         $namaLengkap  = trim($_POST['nama_lengkap'] ?? '');
-        $role         = $_POST['role'] ?? 'kasir';
+        $role = 'kasir'; // role publik selalu paling rendah, admin tidak bisa dibuat lewat form ini
 
-        $old = compact('username', 'namaLengkap', 'role') + $old;
+        $old = compact('username', 'namaLengkap') + $old;
         $old['nama_lengkap'] = $namaLengkap;
 
         // --- Validasi server-side ---
@@ -40,9 +40,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $errors['nama_lengkap'] = 'Nama lengkap wajib diisi (maks 100 karakter).';
         }
 
-        if (!in_array($role, ['admin', 'kasir'], true)) {
-            $errors['role'] = 'Role tidak valid.';
-        }
 
         if (strlen($password) < 8) {
             $errors['password'] = 'Password minimal 8 karakter.';
@@ -100,13 +97,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'attrs' => 'required maxlength="100"',
         ]); ?>
 
-        <div class="form-group <?= isset($errors['role']) ? 'has-error' : '' ?>">
-            <label for="field-role">Role</label>
-            <select id="field-role" name="role" required>
-                <option value="kasir" <?= ($old['role'] === 'kasir') ? 'selected' : '' ?>>Kasir</option>
-                <option value="admin" <?= ($old['role'] === 'admin') ? 'selected' : '' ?>>Admin</option>
-            </select>
-        </div>
 
         <?php renderInput([
             'name'  => 'password',
