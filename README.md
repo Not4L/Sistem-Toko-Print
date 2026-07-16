@@ -38,7 +38,6 @@ project/
 └── css/style.css
 ```
 
-
 ## Catatan keamanan tambahan
 - **CSRF**: tiap form POST menyertakan `csrf_token` yang divalidasi pakai `hash_equals()`.
 - **Session fixation**: `session_regenerate_id(true)` dipanggil setelah login berhasil.
