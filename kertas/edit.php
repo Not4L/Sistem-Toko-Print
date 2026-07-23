@@ -1,4 +1,4 @@
-<?php
+    <?php
 require_once __DIR__ . '/../includes/auth_middleware.php';
 requireLogin();
 requireRole('admin');
@@ -7,7 +7,10 @@ require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../includes/form_input.php';
 
 $pdo = getConnection();
-$id  = (int) ($_GET['id'] ?? $_POST['id_kertas'] ?? 0);
+$id  = (int) ($_GET['id'] ?? $_POST['id_kertas'] ?? 0); 
+
+
+
 
 $stmt = $pdo->prepare('SELECT * FROM kertas WHERE id_kertas = ? AND is_deleted = 0');
 $stmt->execute([$id]);
@@ -36,8 +39,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'stok'             => $_POST['stok'] ?? '',
         ];
 
-        // Validasi server-side yang SAMA dengan create (reusable -> DRY),
-        // excludeId supaya nama sendiri tidak dianggap duplikat
+        $stmtCheck = $pdo->prepare('SELECT updated_at FROM kertas WHERE id_kertas = ?');
+$stmtCheck->execute([$id]);
+$updatedAtSekarang = $stmtCheck->fetchColumn();
+
+if ($updatedAtSekarang !== ($_POST['updated_at_check'] ?? '')) {
+    $errors['general'] = 'Data ini sudah diubah orang lain sejak kamu buka form. Silakan refresh dan coba lagi.';
+}
         $errors = validateKertas($old, $pdo, $id);
 
         if (empty($errors)) {
@@ -70,6 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <form method="POST" action="<?= url('/kertas/edit.php') ?>?id=<?= (int) $id ?>" novalidate>
         <input type="hidden" name="csrf_token" value="<?= e(csrfToken()) ?>">
         <input type="hidden" name="id_kertas" value="<?= (int) $id ?>">
+        <input type="hidden" name="updated_at_check" value="<?= e($kertas['updated_at']) ?>">
 
         <?php renderInput([
             'name'  => 'nama_jenis',

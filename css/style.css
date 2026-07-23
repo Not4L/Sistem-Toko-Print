@@ -333,3 +333,42 @@ td form { margin-left: 10px; }
     color: #fff;
     border-color: var(--primary);
 }
+
+.badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+}
+.badge-draft { background: var(--warning-light); color: #b45309; }
+.badge-final { background: var(--success-light); color: #15803d; }
+.badge-batal { background: var(--danger-light); color: #b91c1c; }
+
+.filter-form {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 16px;
+}
+.filter-form input, .filter-form select {
+    padding: 8px 12px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-size: 13.5px;
+    font-family: inherit;
+}
+.filter-form a { color: var(--text-secondary); text-decoration: none; font-size: 13.5px; }
+.filter-form a:hover { color: var(--text-primary); }
+
+.ringkasan {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 20px 0;
+}
+.ringkasan p { margin: 4px 0; font-size: 14px; }
+
+.info-count { color: var(--text-secondary); font-size: 13px; margin-top: 12px; }

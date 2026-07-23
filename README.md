@@ -47,4 +47,4 @@ project/
 
 ## Yang belum termasuk di fase ini
 - Modul transaksi cetak (dashboard kasir baru stub) — direncanakan fase berikutnya sesuai timeline PKL.
-- Modul stok_log baru dipakai otomatis saat tambah kertas baru; UI khusus stok belum dibuat.
+- Modul stok_log baru dipakai otomatis saat tambah kertas baru; UI khusus stok belum dibuat..
